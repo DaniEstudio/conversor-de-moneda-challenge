@@ -1,0 +1,15 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.challenge.conversor</groupId>
+	<artifactId>conversor-monedas</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>Conversor de Monedas</name>
+	<description>Challenge de Alura, conversor de monedas hecho con Java y Maven</description>
+	<dependencies>
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-swing</artifactId>
+			<version>20-ea+11</version>
+		</dependency>
+	</dependencies>
+</project>
