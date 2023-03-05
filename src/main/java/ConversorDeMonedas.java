@@ -1,6 +1,8 @@
 import javax.swing.JOptionPane;
 
 public class ConversorDeMonedas {
+	//TODO conversor de temperaturas
+	
 	//Un peso es equivalente a 0.0052 dolares
 	private static final double PESO_A_DOLAR = 0.0052;
 	//Un dolar es equivalente a 195.30 pesos
@@ -27,7 +29,8 @@ public class ConversorDeMonedas {
 
 		if (opcionSeleccionada.equals("Conversor de Moneda")) {
 			conversorDeMoneda();
-		} else if (opcionSeleccionada.equals("Conversor de Temperatura")) {
+		} 
+		if (opcionSeleccionada.equals("Conversor de Temperatura")) {
 			conversorDeTemperatura();
 		}
 	}
@@ -40,6 +43,8 @@ public class ConversorDeMonedas {
 		double cantidad = getCantidad();
 		double resultado = conversion(opcionElegida, cantidad);
 		mostrarTotal(opcionElegida, cantidad, resultado);
+		dialogoContinuar();//acá pregunto si quiere continuar convirtiendo monedas
+		
 	}
 	
 	public static String menuOpcionesMoneda() {
@@ -71,15 +76,21 @@ public class ConversorDeMonedas {
 	}
 	
 	public static double getCantidad() {
-		String input = JOptionPane.showInputDialog("Ingrese la cantidad a convertir");
-		double cantidad = Double.parseDouble(input);
-		while (!numIngresadoValido(cantidad)) {
-			input = JOptionPane.showInputDialog(null, "Por favor ingrese una cantidad válida.", "Error",
-					JOptionPane.ERROR_MESSAGE);
-			cantidad = Double.parseDouble(input);
-		}
-		return cantidad;
+	    double cantidad = 0;
+	    try {//si todo va bien esto es lo que debería hacer
+	        String input = JOptionPane.showInputDialog("Ingrese la cantidad a convertir"); //le pido al usuario que ingrese la cantidad que desea convertir
+	        cantidad = Double.parseDouble(input);//a la cantidad obtenida y guardada en la variable "input" dal tipo String la paso al tipo double
+	        while (!numIngresadoValido(cantidad)) {
+	            input = JOptionPane.showInputDialog(null, "Por favor ingrese una cantidad válida.", "Error",
+	                    JOptionPane.ERROR_MESSAGE);
+	            cantidad = Double.parseDouble(input);
+	        }
+	    } catch (NullPointerException e) {//si el usuario cierra la ventana o la cancela
+	        dialogoContinuar();
+	    }
+	    return cantidad;
 	}
+	
 	
 	public static double conversion(String opcion, double cantidad) {
 		double total = 0;
@@ -156,14 +167,24 @@ public class ConversorDeMonedas {
 		JOptionPane.showMessageDialog(null, mensaje);
 	}
 	
+	public static void dialogoContinuar() {
+		int input = JOptionPane.showConfirmDialog(null, "¿Desea continuar?");
+		
+		if(input == 0) {
+			conversorDeMoneda();
+		}else {
+			JOptionPane.showMessageDialog(null, "Programa Finalizado");
+			System.exit(0);//Indico al sistema que se debe cerrar la aplicación con un código de salida de 0 (el programa terminó correctamente)
+		}
+	}
 
 	// Validadores
 	public static boolean opcionSeleccionadaValida(String opcion) {
 		return opcion != "---";
 	}
 	
-	public static boolean numIngresadoValido(double valor) {
-		return valor > 0;
+	public static boolean numIngresadoValido(Double valor) {
+	    return valor != null && !Double.isNaN(valor) && valor > 0;
 	}
 	
 	//Calculos segun opción de conversion elegida
@@ -207,7 +228,7 @@ public class ConversorDeMonedas {
 		return cantidad * WON_A_PESO;
 	}
 
-	/* ==== CONVERSOR TEMPERATURAS ==== */
+	/* ==== CONVERSOR DE TEMPERATURAS ==== */
 	public static void conversorDeTemperatura() {
 
 	}
